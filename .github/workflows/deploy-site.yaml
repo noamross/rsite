@@ -1,0 +1,31 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+name: Deploy Site
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  update_site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout and decrypt
+        id: prep
+        env:
+          GIT_CRYPT_KEY64: ${{ secrets.GIT_CRYPT_KEY64 }}
+        run: |
+          sudo apt-get install git-crypt
+          echo $GIT_CRYPT_KEY64 > git_crypt_key.key64 && base64 -d git_crypt_key.key64 > git_crypt_key.key && git-crypt unlock git_crypt_key.key
+          rm git_crypt_key.key git_crypt_key.key64
+      - name: Transfer files to host
+        run: |
+          make transfer
+      - name: Update Packages and Restart daemons
+        run: |
+          make update
+      - name: Debug using tmate session if previous steps fail
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 15
