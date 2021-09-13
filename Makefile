@@ -16,7 +16,7 @@ update:
 	&& ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST "cd /home/protected; ./restore-packages.R" \
 	&& ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST nfsn stop-daemon plumber || true \
 	&& ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST nfsn start-daemon plumber \
-	&& ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST nfsn stop-daemon shiny || true \
-	&& ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST nfsn start-daemon shiny
+	&& ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST nfsn stop-daemon shiny || true #\
+#	&& # ssh -i `pwd`/$$SSH_KEYFILE $$SSH_USER@$$SSH_HOST nfsn start-daemon shiny
 
 .PHONY: transfer update

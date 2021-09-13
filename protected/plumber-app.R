@@ -8,10 +8,10 @@
 #
 
 library(plumber)
-library(memoise)
-library(future)
-library(future.callr)
-library(promises)
+#library(memoise)
+#library(future)
+#library(future.callr)
+#library(promises)
 
 #* @apiTitle Test Plumber API
 #* @apiDescription Plumber example description.
