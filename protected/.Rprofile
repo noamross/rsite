@@ -3,8 +3,7 @@ options(
   renv.verbose = TRUE,
   renv.config.cache.enabled = TRUE,
   renv.config.cache.symlinks = TRUE,
-  renv.config.install.verbose = TRUE,
-  Ncpus = 4
+  renv.config.install.verbose = TRUE
 )
 
 if (file.exists(".env")) {
